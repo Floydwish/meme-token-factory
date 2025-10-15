@@ -1,0 +1,19 @@
+echo "# Foundry
+cache/
+out/
+lib/
+broadcast/
+
+# 敏感信息
+.env
+.env.*
+*.key
+
+# 本地测试记录
+broadcast/*/31337/
+broadcast/**/dry-run/
+
+# 系统文件
+.DS_Store
+*.log
+test-failures" > .gitignore
