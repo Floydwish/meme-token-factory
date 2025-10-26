@@ -1,0 +1,40 @@
+=== Meme Factory 测试报告 ===
+生成时间: Sun Oct 26 11:21:27 CST 2025
+
+No files changed, compilation skipped
+
+Ran 5 tests for test/LiquidityTest.t.sol:LiquidityTest
+[PASS] testFeeCalculation() (gas: 1434)
+[PASS] testLiquidityAddition() (gas: 396598)
+[PASS] testLiquidityParameters() (gas: 396557)
+[PASS] testSlippageProtection() (gas: 393210)
+[PASS] testTokenAmountCalculation() (gas: 264932)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 8.33ms (11.20ms CPU time)
+
+Ran 9 tests for test/MemeFactory.t.sol:MemeFactoryTest
+[PASS] testBuyMemeWhenPriceBetter() (gas: 279743)
+[PASS] testERC20Standard() (gas: 418575)
+[PASS] testFeeDistribution() (gas: 373225)
+[PASS] testInsufficientPayment() (gas: 276989)
+[PASS] testMintAmountAndSupplyLimit() (gas: 461874)
+[PASS] testPerMintCorrect() (gas: 448760)
+[PASS] testRefundExcessPayment() (gas: 377227)
+[PASS] testUniswapPriceQuery() (gas: 270486)
+[PASS] testUsesClones() (gas: 504161)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 8.53ms (20.43ms CPU time)
+
+Ran 2 test suites in 178.65ms (16.86ms CPU time): 14 tests passed, 0 failed, 0 skipped (14 total tests)
+
+=== 测试总结 ===
+✅ 总测试用例: 14 个
+✅ 通过测试: 14 个
+✅ 失败测试: 0 个
+✅ 跳过测试: 0 个
+
+=== 功能验证 ===
+✅ 费用分配: 5% 平台费用用于流动性
+✅ 流动性添加: 使用模拟 Uniswap Router 验证
+✅ 滑点保护: 5% 滑点容忍度
+✅ 最小代理: Gas 优化验证
+✅ ERC20 标准: 完整代币功能
+✅ 铸造功能: 供应量限制和数量控制
