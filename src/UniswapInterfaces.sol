@@ -3,6 +3,8 @@ pragma solidity ^0.8.20;
 
 // 简化的 Uniswap V2 接口，用于测试
 interface IUniswapV2Router02 {
+    function WETH() external pure returns (address);
+    
     function addLiquidityETH(
         address token,
         uint256 amountTokenDesired,

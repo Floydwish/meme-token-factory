@@ -20,10 +20,10 @@ contract MemeFactoryTest is Test {
         user1 = makeAddr("user1");
         user2 = makeAddr("user2");
         
-        factory = new MemeFactory();
+        factory = new MemeFactory(address(0)); // 使用 address(0) 禁用 Uniswap 功能
     }
     
-    /// 测试1: 费用分配正确性（1% vs 99%）
+    /// 测试1: 费用分配正确性（5% vs 95%）
     function testFeeDistribution() public {
         // 创建者部署 Meme (price 是每次铸造的总费用)
         vm.prank(creator);
@@ -42,8 +42,9 @@ contract MemeFactoryTest is Test {
         uint256 platformFee = platform.balance - platformBefore;
         uint256 creatorFee = creator.balance - creatorBefore;
         
-        assertEq(platformFee, 0.01 ether, "Platform should receive 1%");
-        assertEq(creatorFee, 0.99 ether, "Creator should receive 99%");
+        // 由于 Uniswap Router 是 address(0)，平台费用会直接转账给平台
+        assertEq(platformFee, 0.05 ether, "Platform should receive 5%");
+        assertEq(creatorFee, 0.95 ether, "Creator should receive 95%");
         assertEq(platformFee + creatorFee, 1 ether, "Total fees should be 1 ETH");
     }
     

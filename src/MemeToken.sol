@@ -19,11 +19,13 @@ contract MemeToken {
     
     // 余额映射
     mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
     
     // 初始化标志
     bool private initialized;
     
     event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
     
     /// @notice 初始化 Meme 代币（替代 constructor）
     function initialize(
@@ -54,6 +56,38 @@ contract MemeToken {
         currentSupply += perMint;
         
         emit Transfer(address(0), to, perMint);
+    }
+    
+    /// @notice ERC20 标准函数：转账
+    function transfer(address to, uint256 amount) external returns (bool) {
+        require(balanceOf[msg.sender] >= amount, "Insufficient balance");
+        
+        balanceOf[msg.sender] -= amount;
+        balanceOf[to] += amount;
+        
+        emit Transfer(msg.sender, to, amount);
+        return true;
+    }
+    
+    /// @notice ERC20 标准函数：授权转账
+    function transferFrom(address from, address to, uint256 amount) external returns (bool) {
+        require(balanceOf[from] >= amount, "Insufficient balance");
+        require(allowance[from][msg.sender] >= amount, "Insufficient allowance");
+        
+        balanceOf[from] -= amount;
+        balanceOf[to] += amount;
+        allowance[from][msg.sender] -= amount;
+        
+        emit Transfer(from, to, amount);
+        return true;
+    }
+    
+    /// @notice ERC20 标准函数：授权
+    function approve(address spender, uint256 amount) external returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        
+        emit Approval(msg.sender, spender, amount);
+        return true;
     }
 }
 
